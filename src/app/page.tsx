@@ -1,14 +1,18 @@
-"use client";
+import LogoutButton from "@/features/auth/components/logout-button";
+import { requireAuth } from "@/lib/auth-utils";
+import { caller } from "@/trpc/server";
 
-import { useTRPC } from "@/trpc/client";
-import { useQuery } from "@tanstack/react-query";
+const page = async () => {
+  await requireAuth();
+  const data = await caller.getUsers();
 
-const page = () => {
-  const trpc=useTRPC();
-  const {data:users}=useQuery(trpc.getUsers.queryOptions())
   return (
-    <div>{JSON.stringify(users)}</div>
-  )
-}
+    <div>
+      Server page component
+      {JSON.stringify(data)}
+      <LogoutButton/>
+    </div>
+  );
+};
 
-export default page
+export default page;
