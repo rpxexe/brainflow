@@ -113,7 +113,7 @@ export const WorkflowsLoading = () => {
   return <LoadingView message="Loading Workflows..." />;
 };
 export const WorkflowsError = () => {
-  return <ErrorView message="Error loading worklfows" />;
+  return <ErrorView message="Error loading workflows" />;
 };
 
 export const WorkflowsEmptyView = () => {
@@ -130,7 +130,7 @@ export const WorkflowsEmptyView = () => {
     <>
       {modal}
       <EmptyView
-        message="You havn't created any workflows yet. Get Started by creating your first workflow"
+        message="You haven't created any workflows yet. Get Started by creating your first workflow"
         onNew={handleCreate}
       />
     </>
@@ -154,7 +154,7 @@ export const WorkflowsItems = ({ data }: { data: Workflow }) => {
         </>
       }
       image={
-        <div className="flex items-cnter justify-center size-8">
+        <div className="flex items-center justify-center size-8">
           <WorkflowIcon className="size-5 text-muted-foreground" />
         </div>
       }
