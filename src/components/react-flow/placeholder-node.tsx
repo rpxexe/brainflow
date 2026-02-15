@@ -14,6 +14,12 @@ export type PlaceholderNodeProps = Partial<NodeProps> & {
   onClick?: () => void;
 };
 
+/**
+ * Render a placeholder node for React Flow with dashed styling and hidden connection handles.
+ *
+ * @param onClick - Called when the node is clicked.
+ * @returns A React element representing the placeholder node used in the flow canvas.
+ */
 export function PlaceholderNode({ children, onClick }: PlaceholderNodeProps) {
   return (
     <BaseNode

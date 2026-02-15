@@ -2,6 +2,14 @@ import type { ComponentProps } from "react";
 
 import { cn } from "@/lib/utils";
 
+/**
+ * Render a styled container used as the base node for React Flow node content.
+ *
+ * The element is focusable (tabIndex=0) and applies a visual selected state when placed
+ * inside React Flow's node wrapper that receives the `selected` class.
+ *
+ * @returns A div element that serves as the styled base node container
+ */
 export function BaseNode({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
@@ -45,8 +53,12 @@ export function BaseNodeHeader({
 }
 
 /**
- * The title text for the node. To maintain a native application feel, the title
- * text is not selectable.
+ * Render an h3 element used as the node title.
+ *
+ * The element is marked with `data-slot="base-node-title"`, prevents text selection,
+ * and merges any provided `className` into its classes.
+ *
+ * @returns The configured `h3` element to use as the node's title.
  */
 export function BaseNodeHeaderTitle({
   className,
@@ -61,6 +73,13 @@ export function BaseNodeHeaderTitle({
   );
 }
 
+/**
+ * Container for a node's content area that provides consistent layout and a slot target.
+ *
+ * Renders a div with a `data-slot="base-node-content"` attribute and default column layout spacing; intended for placement inside `BaseNode`.
+ *
+ * @returns A div element styled as the node content area and marked for slot-based composition.
+ */
 export function BaseNodeContent({
   className,
   ...props
@@ -74,6 +93,12 @@ export function BaseNodeContent({
   );
 }
 
+/**
+ * Render the footer container for a BaseNode, exposed via the `data-slot="base-node-footer"` attribute.
+ *
+ * @param className - Additional class names to append to the footer's default layout and spacing classes
+ * @returns A div element used as the node footer, with default footer layout/styling and any provided class names applied
+ */
 export function BaseNodeFooter({ className, ...props }: ComponentProps<"div">) {
   return (
     <div
