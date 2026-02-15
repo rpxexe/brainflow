@@ -23,6 +23,21 @@ export const useCreateWorkflows=()=>{
         }
     }))
 }
+export const useUpdateWorkflowName=()=>{
+    
+    const queryClient=useQueryClient();
+    const trpc=useTRPC();
+    return useMutation(trpc.workflows.updateName.mutationOptions({
+        onSuccess:(data)=>{
+            toast.success(`Workflow "${data.name}" updated`)
+            queryClient.invalidateQueries(trpc.workflows.getOne.queryOptions({id:data.id}))
+        
+        },
+        onError:(error)=>{
+            toast.error(`Failed to update workflow: ${error.message}`)
+        }
+    }))
+}
 export const useRemoveWorkflows=()=>{
     const trpc=useTRPC();
     const queryClient=useQueryClient();
@@ -33,4 +48,10 @@ export const useRemoveWorkflows=()=>{
             queryClient.invalidateQueries(trpc.workflows.getOne.queryFilter({id:data.id}))
         }
     }))
+}
+
+
+export const useSuspenseWorkflow=(id:string)=>{
+    const trpc=useTRPC()
+    return useSuspenseQuery(trpc.workflows.getOne.queryOptions({id}))
 }
