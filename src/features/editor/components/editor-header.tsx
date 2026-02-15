@@ -78,7 +78,7 @@ export const EditorNameInput = ({ workflowId }: { workflowId: string }) => {
             onChange={(e)=>{setName(e.target.value)}}
             value={name}
             onBlur={handleSave}
-            className="h-7 w-auto m-w-[100px] px-2"
+            className="h-7 w-auto min-w-[100px] px-2"
             />
         )
     }
