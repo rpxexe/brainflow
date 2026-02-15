@@ -26,7 +26,6 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import React from "react";
-import { ItemSeparator } from "./ui/item";
 import { cn } from "@/lib/utils";
 type EntityHeaderProps = {
   title: string;
