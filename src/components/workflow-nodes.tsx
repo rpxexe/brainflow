@@ -13,7 +13,7 @@ interface WorkflowNodesProps{
     name?:string;
     description?:string;
 }
-export const WorkflowNodes=({
+export const WorkflowNode=({
     children,
     showToolbar=true,
     onDelete,
