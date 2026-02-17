@@ -1,55 +1,79 @@
-"use client"
-import { type NodeProps,Position } from "@xyflow/react"
-import type { LucideIcon } from "lucide-react"
-import { ReactNode,memo } from "react";
-import { WorkflowNode } from "@/components/workflow-nodes";
+"use client";
+import { type NodeProps, Position, useReactFlow } from "@xyflow/react";
+import type { LucideIcon } from "lucide-react";
+import { ReactNode, memo } from "react";
+import { WorkflowNode } from "@/components/workflow-node";
 import { BaseNode, BaseNodeContent } from "@/components/react-flow/base-node";
 import Image from "next/image";
 import { BaseHandle } from "@/components/react-flow/base-handle";
+import { type NodeStatus, NodeStatusIndicator } from "@/components/react-flow/node-status-indicator";
 
-interface BaseTriggerNodeProps extends NodeProps{
-    icon:LucideIcon | string;
-    name:string;
-    description?:string;
-    children?:ReactNode;
-    // status:NodeStatus;
-    onSettings?:()=>void;
-    onDoubleClick?:()=>void;
+interface BaseTriggerNodeProps extends NodeProps {
+  icon: LucideIcon | string;
+  name: string;
+  description?: string;
+  children?: ReactNode;
+  status?:NodeStatus;
+  onSettings?: () => void;
+  onDoubleClick?: () => void;
 }
 
-export const BaseTriggerNode=memo(({
-id,
-icon:Icon,
-name,
-description,
-children,
-onSettings,
-onDoubleClick
-}:BaseTriggerNodeProps)=>{
-
-    const handleDelete=()=>{}
-return (
-  <WorkflowNode
-    name={name}
-    description={description}
-    onSettings={onSettings}
-    onDelete={handleDelete}
-  >
-    <BaseNode
-      onDoubleClick={onDoubleClick}
-      className="rounded-l-2xl relative group"
-    >
-      <BaseNodeContent>
-        {typeof Icon === "string" ? (
-          <Image src={Icon} width={16} height={16} alt={name} />
-        ) : (
-          <Icon className="size-4" />
-        )}
-        {children}
-        <BaseHandle id="source-1" type="source" position={Position.Right} />
-      </BaseNodeContent>
-    </BaseNode>
-  </WorkflowNode>
+export const BaseTriggerNode = memo(
+  ({
+    id,
+    icon: Icon,
+    name,
+    description,
+    children,
+    status="initial",
+    onSettings,
+    onDoubleClick,
+  }: BaseTriggerNodeProps) => {
+     const {setNodes,setEdges} =useReactFlow()
+        const handleDelete = () => {
+          setNodes((currentNodes)=>{
+            const updatedNodes=currentNodes.filter((currentNode)=>currentNode.id!==id)
+            return updatedNodes
+          })
+          setEdges((currentEdges)=>{
+            const updatedEdges=currentEdges.filter((currentEdge)=>currentEdge.source!==id && currentEdge.target!==id)
+            return updatedEdges
+          })
+        };
+    return (
+      <WorkflowNode
+        name={name}
+        description={description}
+        onSettings={onSettings}
+        onDelete={handleDelete}
+      >
+        <NodeStatusIndicator
+        status={status}
+        variant="border"
+        className="rounded-l-2xl"
+        >
+          <BaseNode 
+          status={status}
+            onDoubleClick={onDoubleClick}
+            className="rounded-l-2xl relative group"
+          >
+            <BaseNodeContent>
+              {typeof Icon === "string" ? (
+                <Image src={Icon} width={16} height={16} alt={name} />
+              ) : (
+                <Icon className="size-4" />
+              )}
+              {children}
+              <BaseHandle
+                id="source-1"
+                type="source"
+                position={Position.Right}
+              />
+            </BaseNodeContent>
+          </BaseNode>
+        </NodeStatusIndicator>
+      </WorkflowNode>
+    );
+  },
 );
-})
-BaseTriggerNode.displayName="BaseTriggerNode" 
+BaseTriggerNode.displayName = "BaseTriggerNode";

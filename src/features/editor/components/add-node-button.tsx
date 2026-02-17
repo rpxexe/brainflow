@@ -4,12 +4,12 @@ import { PlusIcon } from "lucide-react";
 import { memo, useState } from "react";
 
 export const AddNodeButton=memo(()=>{
-    const [selectorOpen,onSelectorOpen]=useState(false)
+    const [selectorOpen,setSelectorOpen]=useState(false)
     return (
-      <NodeSelector open={selectorOpen} onOpenChange={onSelectorOpen}>
+      <NodeSelector open={selectorOpen} onOpenChange={setSelectorOpen}>
         <Button
           className="bg-background"
-          onClick={() => {}}
+          onClick={() => setSelectorOpen(true)}
           size="icon"
           variant="outline"
         >
