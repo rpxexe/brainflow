@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
       }
     ];
   },
+  devIndicators:false,
   /* config options here */
 };
 
