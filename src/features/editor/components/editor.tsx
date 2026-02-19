@@ -1,7 +1,7 @@
 "use client";
 import { ErrorView, LoadingView } from "@/components/entity-components";
 import { useSuspenseWorkflow } from "@/features/workflows/hooks/use-workflows";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import {
   ReactFlow,
   applyNodeChanges,
@@ -22,6 +22,8 @@ import { nodeComponents } from "@/config/node-component";
 import { AddNodeButton } from "./add-node-button";
 import { useSetAtom } from "jotai";
 import { editorAtom } from "../store/atoms";
+import { NodeType } from "@/generated/prisma/enums";
+import { ExecuteWorkflowButton } from "./execute-workflow-button";
 
 export const Editor=({workflowId}:{workflowId:string})=>{
     const {data:workflow}=useSuspenseWorkflow(workflowId)
@@ -42,7 +44,10 @@ export const Editor=({workflowId}:{workflowId:string})=>{
   const onConnect = useCallback(
     (params:Connection) => setEdges((edgesSnapshot) => addEdge(params, edgesSnapshot)),
     [],
-  );
+  )
+    const hasManualTrigger=useMemo(()=>{
+      return nodes.some((node)=>node.type===NodeType.MANUAL_TRIGGER)
+    },[nodes])
     return (
       <div className="size-full">
         <ReactFlow
@@ -53,19 +58,24 @@ export const Editor=({workflowId}:{workflowId:string})=>{
           onEdgesChange={onEdgesChange}
           onConnect={onConnect}
           onInit={setEditor}
-          snapGrid={[10,10]}
+          snapGrid={[10, 10]}
           snapToGrid
           panOnScroll
           panOnDrag={false}
           selectionOnDrag
           fitView
         >
-            <Background/>
-            <Controls/>
-            <MiniMap/>
-            <Panel position="top-right">
-              <AddNodeButton/>
+          <Background />
+          <Controls />
+          <MiniMap />
+          <Panel position="top-right">
+            <AddNodeButton />
+          </Panel>
+          {hasManualTrigger && (
+            <Panel position="bottom-center">
+              <ExecuteWorkflowButton workflowId={workflowId} />
             </Panel>
+          )}
         </ReactFlow>
       </div>
     );
