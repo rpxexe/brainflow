@@ -5,6 +5,9 @@ import { memo, useState } from "react";
 import { BaseExecutionNode } from "../base-execution-node";
 import { GlobeIcon } from "lucide-react";
 import { HttpRequestFormValues, HttpRequestDialog } from "./dialog";
+import { useNodeStatus } from "../../hooks/use-node-status";
+import { HTTP_REQUEST_CHANNEL_NAME } from "@/inngest/channels/http-request";
+import { fetchHttpRealtimeToken } from "./actions";
 
 type HttpRequestNodeData = {
   variableName?: string;
@@ -32,8 +35,14 @@ export const HttpRequestNode = memo((props: NodeProps<HttpRequestNodeType>) => {
       }),
     );
   };
-  const status = "initial";
+  const nodeStatus = useNodeStatus({
+    nodeId: props.id,
+    channel:HTTP_REQUEST_CHANNEL_NAME,
+    topic: "status",
+    refreshToken: fetchHttpRealtimeToken,
+  });
 
+  // const status="loading"
   const handelDialogSettings = () => {
     setDialogOpen(true);
   };
@@ -45,11 +54,11 @@ export const HttpRequestNode = memo((props: NodeProps<HttpRequestNodeType>) => {
 
   return (
     <>
-      <HttpRequestDialog 
-      open={dialogOpen} 
-      onOpenChange={setDialogOpen} 
-      onSubmit={handleSubmit} 
-      defaultValues={nodeData}
+      <HttpRequestDialog
+        open={dialogOpen}
+        onOpenChange={setDialogOpen}
+        onSubmit={handleSubmit}
+        defaultValues={nodeData}
       />
       <BaseExecutionNode
         {...props}
@@ -57,7 +66,7 @@ export const HttpRequestNode = memo((props: NodeProps<HttpRequestNodeType>) => {
         icon={GlobeIcon}
         name="HTTP Request"
         description={description}
-        status={status}
+        status={nodeStatus}
         onSettings={handelDialogSettings}
         onDoubleClick={handelDialogSettings}
       />
