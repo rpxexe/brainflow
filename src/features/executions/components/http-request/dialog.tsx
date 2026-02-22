@@ -34,7 +34,7 @@ import { useEffect } from "react";
 
 const formSchema = z.object({
   variableName:z.string().min(1,{message:"Variable name is required"}).regex(/^[A-Za-z_$][A-Za-z0-9_$]*$/,{message:"Variable name must start with a letter or underscore and contain only letters, numbers and underscore"}),
-  endpoint: z.url({ message: "Please Enter a valid URL" }),
+  endpoint: z.string({ message: "Please Enter a valid URL" }),
   method: z.enum(["GET", "PUT", "POST", "PATCH", "DELETE"]),
   body: z.string().optional(),
   // .refine() TODO JSON5
