@@ -153,8 +153,8 @@ export const AnthropicDialog = ({
                         <SelectItem key={credential.id} value={credential.id}>
                           <div className="flex items-center gap-2">
                             <Image
-                              src="logos/anthropic.svg"
-                              alt="Gemini"
+                              src="/logos/anthropic.svg"
+                              alt="anthropic"
                               height={16}
                               width={16}
                             />

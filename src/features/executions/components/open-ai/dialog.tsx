@@ -33,6 +33,7 @@ import { useForm } from "react-hook-form";
 import { useEffect } from "react";
 import { useCredentialsByType } from "@/features/credentials/hooks/use-credentials";
 import { CredentialType } from "@/generated/prisma/enums";
+import Image from "next/image";
 
 export const AVAILABLE_MODELS = [
   "gpt-5-mini", // cheaper, faster, common free token use
@@ -70,6 +71,8 @@ export const OpenAiDialog = ({
   onSubmit,
   defaultValues = {},
 }: Props) => {
+  const { data: credentials, isLoading: isLoadingCredentials } =
+    useCredentialsByType(CredentialType.OPENAI);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -82,8 +85,7 @@ export const OpenAiDialog = ({
   });
 
   useEffect(() => {
-    const { data: credentials, isLoading: isLoadingCredentials } =
-        useCredentialsByType(CredentialType.OPENAI);
+    
     if (open) {
       form.reset({
         variableName: defaultValues.variableName || "",
@@ -153,8 +155,8 @@ export const OpenAiDialog = ({
                         <SelectItem key={credential.id} value={credential.id}>
                           <div className="flex items-center gap-2">
                             <Image
-                              src="logos/openai.svg"
-                              alt="Gemini"
+                              src="/logos/openai.svg"
+                              alt="Open AI"
                               height={16}
                               width={16}
                             />

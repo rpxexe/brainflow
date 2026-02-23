@@ -73,7 +73,7 @@ const credential = await step.run("get-credential", () => {
     })
   })
   if (!credential) {
-    throw new NonRetriableError("Anthropic: Credential is not found")
+    throw new NonRetriableError("Open AI node: Credential is not found")
   }
   const openai = createOpenAI({
     apiKey: credential.value,
