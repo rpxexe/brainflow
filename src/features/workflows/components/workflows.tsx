@@ -22,7 +22,6 @@ import { useWorkflowsParams } from "../hooks/use-workflows-params";
 import { useEntitySearch } from "@/hooks/use-entity-search";
 import type { Workflow } from "@/generated/prisma/client";
 import { WorkflowIcon } from "lucide-react";
-
 export const WorkflowsSearch = () => {
   const [params, setParams] = useWorkflowsParams();
   const { searchValue, onSearchChange } = useEntitySearch({
@@ -117,6 +116,7 @@ export const WorkflowsError = () => {
 };
 
 export const WorkflowsEmptyView = () => {
+  const router=useRouter()
   const createWorkflows = useCreateWorkflows();
   const { handleError, modal } = useUpgradeModal();
   const handleCreate = () => {
@@ -124,6 +124,9 @@ export const WorkflowsEmptyView = () => {
       onError: (error) => {
         handleError(error);
       },
+      onSuccess: (data) => {
+        router.push(`/workflows/${data.id}`)
+      }
     });
   };
   return (
