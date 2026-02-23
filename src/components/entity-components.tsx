@@ -34,9 +34,9 @@ type EntityHeaderProps = {
   disabled?: boolean;
   isCreating?: boolean;
 } & (
-  | { onNew: () => void; newButtonHref?: never }
-  | { newButtonHref?: string; onNew: never }
-  | { onNew: never; newButtonHref?: never }
+  | { onNew?: () => void; newButtonHref?: never }
+  | { newButtonHref?: string; onNew?: never }
+  | { onNew?: never; newButtonHref?: never }
 );
 
 export const EntityHeader = ({
