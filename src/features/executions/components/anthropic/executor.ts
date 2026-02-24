@@ -5,6 +5,7 @@ import { generateText } from "ai";
 import Handlebars from "handlebars";
 import { anthropicChannel } from "@/inngest/channels/anthropic";
 import prisma from "@/lib/db";
+import { decrypt } from "@/lib/encryption";
 
 Handlebars.registerHelper("json", (context) => {
   const jsonStringified = JSON.stringify(context, null, 2);
@@ -85,7 +86,7 @@ const credential = await step.run("get-credential", () => {
     throw new NonRetriableError("Anthropic: Credential is not found")
   }
   const anthropic = createAnthropic({
-    apiKey: credential.value,
+    apiKey: decrypt(credential.value),
   });
   try {
     const { steps } = await step.ai.wrap(
