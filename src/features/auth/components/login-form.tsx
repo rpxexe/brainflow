@@ -41,6 +41,36 @@ const LoginForm = () => {
       password: "",
     },
   });
+  const signInGithub = async () => {
+    await authClient.signIn.social(
+      {
+        provider: "github",
+      },
+      {
+        onSuccess: () => {
+          router.push("/");
+        },
+        onError: () => {
+          toast.error("Something went Wrong");
+        },
+      },
+    );
+  }
+  const signInGoogle = async () => {
+    await authClient.signIn.social(
+      {
+        provider: "google",
+      },
+      {
+        onSuccess: () => {
+          router.push("/");
+        },
+        onError: () => {
+          toast.error("Something went Wrong");
+        },
+      },
+    );
+  }
   const onSubmit = async (values: LoginFormValues) => {
     await authClient.signIn.email(
       {
@@ -74,21 +104,33 @@ const LoginForm = () => {
               <div className="grid gap-6">
                 <div className="flex flex-col gap-4">
                   <Button
+                    onClick={signInGoogle}
                     variant="outline"
                     className="w-full"
                     type="button"
                     disabled={isPending}
                   >
-                    <Image alt="Google" src="/logos/google.svg" width={20} height={20}/> 
+                    <Image
+                      alt="Google"
+                      src="/logos/google.svg"
+                      width={20}
+                      height={20}
+                    />
                     Login with Google
                   </Button>
                   <Button
+                    onClick={signInGithub}
                     variant="outline"
                     className="w-full"
                     type="button"
                     disabled={isPending}
                   >
-                    <Image alt="Github" src="/logos/github.svg" width={20} height={20}/>
+                    <Image
+                      alt="Github"
+                      src="/logos/github.svg"
+                      width={20}
+                      height={20}
+                    />
                     Login with Github
                   </Button>
                 </div>
