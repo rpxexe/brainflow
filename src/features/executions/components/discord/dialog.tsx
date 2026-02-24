@@ -83,7 +83,7 @@ export const DiscordDialog = ({
   };
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="h-[calc(100vh-25px)] overflow-auto">
         <DialogHeader>
           <DialogTitle>Discord Configuration</DialogTitle>
           <DialogDescription>

@@ -103,7 +103,7 @@ export const AnthropicDialog = ({
   };
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="h-[calc(100vh-25px)] overflow-auto">
         <DialogHeader>
           <DialogTitle>Claude Configuration</DialogTitle>
           <DialogDescription>

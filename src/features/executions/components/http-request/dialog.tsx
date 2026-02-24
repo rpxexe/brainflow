@@ -82,7 +82,7 @@ export const HttpRequestDialog = ({
   };
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="h-[calc(100vh-25px)] overflow-auto">
         <DialogHeader>
           <DialogTitle>HTTP Request</DialogTitle>
           <DialogDescription>
@@ -104,11 +104,13 @@ export const HttpRequestDialog = ({
                     <Input placeholder="myApiCall" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Use this name to reference the result in other nodes:{" "}{`{{${watchVariableName}.httpResponse.data}}`}
+                    Use this name to reference the result in other nodes:{" "}
+                    {`{{${watchVariableName}.httpResponse.data}}`}
                   </FormDescription>
-                  <FormMessage/>
-              </FormItem>
-            )}/>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="method"

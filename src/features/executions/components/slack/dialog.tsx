@@ -80,7 +80,7 @@ export const SlackDialog = ({
   };
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="h-[calc(100vh-25px)] overflow-auto">
         <DialogHeader>
           <DialogTitle>Slack Configuration</DialogTitle>
           <DialogDescription>
@@ -126,7 +126,7 @@ export const SlackDialog = ({
                     Webhooks
                   </FormDescription>
                   <FormDescription>
-                    Make sure the "key" is  "content"
+                    Make sure the "key" is "content"
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
