@@ -30,12 +30,12 @@ import { cn } from "@/lib/utils";
 type EntityHeaderProps = {
   title: string;
   description?: string;
-  newButtonLabel: string;
+  newButtonLabel?: string;
   disabled?: boolean;
   isCreating?: boolean;
 } & (
-  | { onNew?: () => void; newButtonHref?: never }
-  | { newButtonHref?: string; onNew?: never }
+  | { onNew: () => void; newButtonHref?: never }
+  | { newButtonHref: string; onNew?: never }
   | { onNew?: never; newButtonHref?: never }
 );
 
