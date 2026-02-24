@@ -95,7 +95,7 @@ export const AnthropicDialog = ({
       });
     }
   }, [open, defaultValues, form]);
-  const watchVariableName = form.watch("variableName");
+  const watchVariableName = form.watch("variableName") ||"myClaude";
 
   const handleSubmit = (values: z.infer<typeof formSchema>) => {
     onSubmit(values);
@@ -122,7 +122,7 @@ export const AnthropicDialog = ({
                 <FormItem>
                   <FormLabel>Variable Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="myApiCall" {...field} />
+                    <Input placeholder="myClaude" {...field} />
                   </FormControl>
                   <FormDescription>
                     Use this name to reference the result in other nodes:{" "}

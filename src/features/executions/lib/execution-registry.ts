@@ -7,6 +7,8 @@ import { stripeTriggerExecutor } from "@/features/triggers/components/stripe-tri
 import { geminiExecutor } from "../components/gemini/executor";
 import { openAiExecutor } from "../components/open-ai/executor";
 import { anthropicExecutor } from "../components/anthropic/executor";
+import { discordExecutor } from "../components/discord/executor";
+import { slackExecutor } from "../components/slack/executor";
 
 export const executerRegistry:Record<NodeType,NodeExecutor> = {
     
@@ -17,7 +19,9 @@ export const executerRegistry:Record<NodeType,NodeExecutor> = {
     [NodeType.STRIPE_TRIGGER]:stripeTriggerExecutor,
     [NodeType.GEMINI]:geminiExecutor,
     [NodeType.OPENAI]:openAiExecutor,  
-    [NodeType.ANTHROPIC]:anthropicExecutor,
+    [NodeType.ANTHROPIC]: anthropicExecutor,
+    [NodeType.DISCORD]: discordExecutor,
+    [NodeType.SLACK]: slackExecutor,
 }
 export const getExecutor = ( type: NodeType ): NodeExecutor => {
     const executor = executerRegistry[type]
