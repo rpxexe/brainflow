@@ -100,7 +100,7 @@ export const GeminiDialog = ({
   };
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="h-[calc(100vh-25px)] overflow-auto">
         <DialogHeader>
           <DialogTitle>Gemini Configuration</DialogTitle>
           <DialogDescription>
